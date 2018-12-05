@@ -1,0 +1,32 @@
+create database Mstanford2
+use Mstanford2
+go
+create table Tb_Student
+(
+	StudentNo int identity(200709002, 1) primary key,--主键，自增
+	StudentName varchar(20) not null,
+	StudentAge int check(StudentAge > 20 and StudentAge < 30),
+	Country varchar(20) default '中国',
+	StuTime datetime not null,
+	Tuition money not null
+)
+
+create table Tb_Student_Course
+(
+	SCNO int identity(1, 1) primary key,
+	StudentNo int references Tb_Student(StudentNo),
+	CourseName varchar(30) unique not null,--非空唯一
+	CourseTime int not null,
+	StuTime datetime default '2018-09-01',
+	Notes varchar(1000)
+)
+
+--添加数据
+use Mstanford2
+go
+insert Tb_Student 
+values('凯奇',26,'法国','2009-09-01','4000.00')
+insert Tb_Student
+select 'shha',26,'印度','2009-09-01','1000.50' union
+select '张小飞',26,'中国','2009-09-01','2000.50' union
+select '李刚',26,'中国','2009-09-01','7000.50'
